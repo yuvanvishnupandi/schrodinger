@@ -17,8 +17,8 @@ class VideoConfig:
     num_frames: int = 12            # Reduced from 16 for speed
     siglip_frames: int = 6         # SigLIP only needs 6 frames (slowest model)
     low_res_threshold: int = 320
-    fake_threshold: float = 0.65
-    real_threshold: float = 0.35
+    fake_threshold: float = 0.50
+    real_threshold: float = 0.30
     abstention_std_threshold: float = 0.30
     early_exit_confidence: float = 0.85  # Skip slow models if fast ones are this confident
     siglip_model: str = "google/siglip-base-patch16-224"
@@ -26,9 +26,9 @@ class VideoConfig:
 @dataclass
 class AudioConfig:
     sample_rate: int = 16000
-    max_duration_sec: int = 30
-    fake_threshold: float = 0.75
-    real_threshold: float = 0.45
+    max_duration_sec: int = 10
+    fake_threshold: float = 0.50
+    real_threshold: float = 0.30
     abstention_std_threshold: float = 0.32
     wavlm_model: str = "microsoft/wavlm-base-plus"
 

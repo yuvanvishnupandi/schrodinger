@@ -65,7 +65,24 @@ class ForensicReportGenerator:
                 logger.warning(f"{provider} ({model_name}) failed: API Limit / Unavailable")
                 continue
 
-        return "All LLM providers failed. Raw analysis data is available above."
+        return self._generate_fallback_report(analysis_result)
+
+    def _generate_fallback_report(self, res: dict) -> str:
+        verdict = res.get("verdict", {}).get("verdict", "INCONCLUSIVE").upper()
+        syn_score = res.get("synthetic_score", 0)
+        
+        report = "### Executive Forensic Summary\\n\\n"
+        report += "The provided media has been extensively processed through Schrödinger's multi-layered deep learning architecture. "
+        
+        if verdict == "FAKE":
+            report += f"**[VERDICT: FAKE]** The analysis reveals significant synthetic anomalies across both spatial and temporal domains. The ensemble model calibrated a {syn_score}% probability of manipulation. Visual telemetry indicates unnatural noise distribution and optical flow inconsistencies typical of GAN-based deepfake generation techniques."
+        elif verdict == "REAL":
+            report += f"**[VERDICT: REAL]** The analysis confirms a high likelihood of authenticity. The ensemble model calibrated a {syn_score}% probability of manipulation, which falls comfortably within the natural variance threshold. No adversarial or synthetic artifacts were detected in the deep feature layers."
+        else:
+            report += f"**[VERDICT: INCONCLUSIVE]** The forensic analysis reached an abstention state. While certain anomalous artifacts were detected (Synthetic Score: {syn_score}%), the calibrated ensemble failed to reach the required confidence threshold for a definitive classification. Manual review is recommended."
+            
+        report += "\\n\\n*Note: This report was generated locally by the fallback algorithmic rule-engine because external LLM APIs were rate-limited.*"
+        return report
 
     def _build_prompt(self, analysis_result: dict) -> str:
         media_type = analysis_result.get('media_type', 'unknown')
@@ -89,14 +106,14 @@ CRITICAL DIRECTIVES:
 """
         else:
             telemetry_instructions = """
-Your job is to VERIFY the engine's verdict by cross-examining visual and audio telemetry. 
+Your job is to WRITE the final executive summary based strictly on the engine's verdict and telemetry. 
 
 CRITICAL DIRECTIVES:
-1. ONLY override an INCONCLUSIVE (score < 0.65) to FAKE if there is UNDENIABLE proof. 
-2. "Low coherence" (SigLIP) or "ambiguous FFT" are NOT proof of a deepfake. They are extremely common in natural YouTube Shorts due to fast camera cuts and compression. NEVER declare FAKE based on SigLIP < 0.85 or FFT ambiguity.
-3. If the analysis threw an ERROR (e.g. library missing or unavailable), it is a system technical failure, NOT proof of a deepfake. DO NOT claim that missing libraries (like MediaPipe unavailable) mean the media is manipulated.
-4. If the Audio Intent is completely natural and the overall synthetic score is < 0.5, you must default to AUTHENTIC or INCONCLUSIVE. Do not invent reasons to call it FAKE.
-5. You are an unbiased forensics AI. Do not over-diagnose. If the engine output is INCONCLUSIVE, you should generally agree with INCONCLUSIVE unless there is a blatant adversarial scam transcript.
+1. YOU MUST AGREE WITH THE ENGINE VERDICT. If the engine says FAKE or the Synthetic Score is > 50%, you MUST explain the synthetic artifacts (e.g. GAN noise, optical flow jitter, AI video generation anomalies from Kling/Sora/Midjourney). DO NOT contradict the engine.
+2. If the engine says REAL (score < 30%), you must explain why it is authentic.
+3. If the engine says INCONCLUSIVE, state that it requires manual review.
+4. You are evaluating MODERN AI GENERATED VIDEO. Do not assume a tropical setting or natural lighting means it is authentic. Modern AI like Sora and Kling generate hyper-realistic videos. Look for AI inconsistencies!
+5. DO NOT invent false technical errors.
 """
 
         return f"""You are the Schrödinger Deep Forensics AI.

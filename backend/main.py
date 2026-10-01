@@ -188,19 +188,7 @@ async def analyze_media(file: UploadFile = File(...)):
         llm_summary = await asyncio.to_thread(llm.generate_report, result, temp_path)
         logger.info("LLM verification complete. Compiling final report...")
         
-        if "[VERDICT: REAL]" in llm_summary:
-            result["verdict"] = _make_verdict("REAL")
-            llm_summary = llm_summary.replace("[VERDICT: REAL]", "").replace("*", "").strip()
-            logger.info("LLM explicitly verified and overrode the verdict to REAL/AUTHENTIC.")
-        elif "[VERDICT: FAKE]" in llm_summary:
-            result["verdict"] = _make_verdict("FAKE")
-            llm_summary = llm_summary.replace("[VERDICT: FAKE]", "").replace("*", "").strip()
-            logger.info("LLM explicitly verified and confirmed the verdict as FAKE.")
-        else:
-            llm_summary = llm_summary.replace("*", "").strip()
-
-        result["llm_summary"] = llm_summary
-
+        result["llm_summary"] = llm_summary.replace("[VERDICT: REAL]", "").replace("[VERDICT: FAKE]", "").replace("*", "").strip()
         return result
 
     except Exception as e:
@@ -384,22 +372,11 @@ async def analyze_url(url: str = Form(...), type: str = Form(None)):
         logger.info("Cross-examining deep learning layers and transcribing context. Please wait...")
         from api.llm_report import get_llm_reporter
         llm = get_llm_reporter()
-        llm_summary = await asyncio.to_thread(llm.generate_report, result, downloaded_file)
+        llm_file = downloaded_file if result.get("media_type") != "audio" else None
+        llm_summary = await asyncio.to_thread(llm.generate_report, result, llm_file)
         logger.info("LLM verification complete. Compiling final report...")
         
-        if "[VERDICT: REAL]" in llm_summary:
-            result["verdict"] = _make_verdict("REAL")
-            llm_summary = llm_summary.replace("[VERDICT: REAL]", "").replace("*", "").strip()
-            logger.info("LLM explicitly verified and overrode the verdict to REAL/AUTHENTIC.")
-        elif "[VERDICT: FAKE]" in llm_summary:
-            result["verdict"] = _make_verdict("FAKE")
-            llm_summary = llm_summary.replace("[VERDICT: FAKE]", "").replace("*", "").strip()
-            logger.info("LLM explicitly verified and confirmed the verdict as FAKE.")
-        else:
-            llm_summary = llm_summary.replace("*", "").strip()
-
-        result["llm_summary"] = llm_summary
-
+        result["llm_summary"] = llm_summary.replace("[VERDICT: REAL]", "").replace("[VERDICT: FAKE]", "").replace("*", "").strip()
         return result
 
     except Exception as e:

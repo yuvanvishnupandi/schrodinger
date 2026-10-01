@@ -92,9 +92,7 @@ class BaseDetector(ABC):
         confidence = max(0.0, 1.0 - vote_std)
         full_reason = " | ".join(r for r in reasons if r)
 
-        if vote_std > abstention_thresh:
-            status = "INCONCLUSIVE"
-        elif final_score >= fake_thresh:
+        if final_score >= fake_thresh:
             status = "FAKE"
         elif final_score <= real_thresh:
             status = "REAL"
