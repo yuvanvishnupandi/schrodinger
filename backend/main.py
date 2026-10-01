@@ -256,10 +256,10 @@ async def analyze_url(url: str = Form(...)):
                 if p_str:
                     bar_len = 25
                     filled = int(bar_len * (p_float / 100))
-                    bar = '█' * filled + '░' * (bar_len - filled)
-                    logger.info(f"  [DOWNLOAD] {bar} {clean_p_str} | Speed: {clean_s_str}")
+                    bar = '█' * filled + '-' * (bar_len - filled)
+                    logger.info(f"  [DOWNLOAD] [{bar}] {clean_p_str} | Speed: {clean_s_str}")
         elif d['status'] == 'finished':
-            logger.info("  [DOWNLOAD] █████████████████████████ 100.0% | Finalizing...")
+            logger.info("  [DOWNLOAD] [█████████████████████████] 100.0% | Finalizing...")
 
     # Configure yt-dlp to download best quality
     ydl_opts = {

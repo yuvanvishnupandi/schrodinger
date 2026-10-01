@@ -246,7 +246,7 @@ export default function VideoProcessing() {
               else if (isSuccess) colorClass = 'text-[#27C93F]';
 
               return (
-                <div key={i} className={colorClass}>
+                <div key={i} className={`${colorClass} whitespace-pre-wrap`}>
                   {log}
                 </div>
               );
@@ -299,7 +299,7 @@ export default function VideoProcessing() {
                                 let v = parsed.searchParams.get('v');
                                 if(!v && parsed.hostname.includes('youtu.be')) v = parsed.pathname.slice(1);
                                 if(!v && parsed.pathname.includes('/shorts/')) v = parsed.pathname.split('/shorts/')[1].split('?')[0];
-                                return v ? `https://img.youtube.com/vi/${v}/maxresdefault.jpg` : 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop';
+                                return v ? `https://img.youtube.com/vi/${v}/hqdefault.jpg` : 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop';
                               } catch { return 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop'; }
                             })(file?.name || (typeof url === 'string' ? url : ''))
                           } 
