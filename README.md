@@ -135,13 +135,6 @@ Configure your MongoDB database and environment variables, then start the FastAP
 </td>
 
 <td align="center" width="150">
-<a href="https://vitejs.dev">
-<img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/vite.svg" width="60"><br><br>
-<b>Vite</b>
-</a>
-</td>
-
-<td align="center" width="150">
 <a href="https://python.org">
 <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/python.svg" width="60"><br><br>
 <b>Python</b>
@@ -154,27 +147,20 @@ Configure your MongoDB database and environment variables, then start the FastAP
 <b>FastAPI</b>
 </a>
 </td>
+
+<td align="center" width="150">
+<a href="https://tensorflow.org">
+<img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/tensorflow.svg" width="60"><br><br>
+<b>TensorFlow</b>
+</a>
+</td>
 </tr>
 
 <tr>
 <td align="center" width="150">
-<a href="https://mongodb.com">
-<img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/mongodb.svg" width="60"><br><br>
-<b>MongoDB</b>
-</a>
-</td>
-
-<td align="center" width="150">
 <a href="https://huggingface.co">
 <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/huggingface.svg" width="60"><br><br>
 <b>HuggingFace</b>
-</a>
-</td>
-
-<td align="center" width="150">
-<a href="https://tailwindcss.com">
-<img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/tailwindcss.svg" width="60"><br><br>
-<b>Tailwind CSS</b>
 </a>
 </td>
 
@@ -184,9 +170,30 @@ Configure your MongoDB database and environment variables, then start the FastAP
 <b>OpenCV</b>
 </a>
 </td>
+
+<td align="center" width="150">
+<a href="https://mongodb.com">
+<img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/mongodb.svg" width="60"><br><br>
+<b>MongoDB</b>
+</a>
+</td>
+
+<td align="center" width="150">
+<a href="https://tailwindcss.com">
+<img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/tailwindcss.svg" width="60"><br><br>
+<b>Tailwind CSS</b>
+</a>
+</td>
 </tr>
 
 <tr>
+<td align="center" width="150">
+<a href="https://vitejs.dev">
+<img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/vite.svg" width="60"><br><br>
+<b>Vite</b>
+</a>
+</td>
+
 <td align="center" width="150">
 <a href="https://vercel.com">
 <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/vercel.svg" width="60"><br><br>
@@ -202,21 +209,12 @@ Configure your MongoDB database and environment variables, then start the FastAP
 </td>
 
 <td align="center" width="150">
-<a href="https://git-scm.com">
-<img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/git.svg" width="60"><br><br>
-<b>Git</b>
-</a>
-</td>
-
-<td align="center" width="150">
 <a href="https://github.com">
 <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg" width="60"><br><br>
 <b>GitHub</b>
 </a>
 </td>
 </tr>
-
-
 </table>
 
 <br><br>
