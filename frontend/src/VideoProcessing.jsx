@@ -371,7 +371,7 @@ export default function VideoProcessing() {
                       {result.transcript && (
                         <div className="md:col-span-2 bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
                           <span className="text-[11px] text-emerald-600 font-bold uppercase tracking-widest block mb-3">Extracted Transcript</span>
-                          <p className="text-[14px] text-gray-700 italic border-l-[3px] border-gray-200 pl-4 py-1">"{result.transcript}"</p>
+                          <p className="text-[14px] text-gray-700 italic border-l-[3px] border-gray-200 pl-4 py-1 break-words whitespace-pre-wrap">"{result.transcript}"</p>
                         </div>
                       )}
                     </div>
