@@ -11,3 +11,10 @@ temp_upload_*
 *.m4a
 *.pdf
 *.webm
+
+.vercel
+.env*
+*.exe
+*.log
+.DS_Store
+temp_*
