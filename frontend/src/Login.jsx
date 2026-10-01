@@ -101,10 +101,10 @@ export default function Login({ onLogin }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.0, delay: 0.2 }}
-        className="flex items-center gap-3 mt-4"
+        className="flex items-center mt-10 mb-2"
       >
         {/* Logo Text */}
-        <span className="text-[26px] font-['Playfair_Display'] font-bold tracking-tight text-[#1a1a1a]">Schrödinger</span>
+        <span className="text-[26px] font-['Playfair_Display'] font-bold tracking-tight text-[#1a1a1a] shrink-0">Schrödinger</span>
         
         {/* Footer Tagline */}
         <p className="text-[9.5px] font-medium text-[#7a7a7a] leading-tight ml-4 border-l border-gray-300 pl-4 py-0.5">
