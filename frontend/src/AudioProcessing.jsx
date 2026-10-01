@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import { AlertTriangle, CheckCircle, AlertCircle } from 'lucide-react';
 import { getAnalysisInput, clearAnalysisInput } from './fileStore';
 
-const BACKEND = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const BACKEND = 'https://a62969003f8cd1.lhr.life';
 
 
 
