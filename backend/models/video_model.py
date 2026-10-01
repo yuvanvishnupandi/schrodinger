@@ -168,7 +168,7 @@ class VideoDeepfakeDetector(BaseDetector):
             elif var_sim > 0.02:
                 return 0.80, var_sim, f"High temporal jitter (var={var_sim:.5f}) — GAN generation"
             elif avg_sim < 0.85:
-                return 0.72, var_sim, f"Low coherence (avg={avg_sim:.3f}) — inconsistent generation"
+                return 0.72, var_sim, f"Low coherence (avg={avg_sim:.3f}) — inconsistent sequence (likely camera cuts)"
             else:
                 return 0.14, var_sim, f"Natural flow (avg={avg_sim:.4f}, var={var_sim:.5f})"
 
@@ -223,7 +223,7 @@ class VideoDeepfakeDetector(BaseDetector):
         elif hf_var < 0.0001:
             return 0.12, f"Consistent FFT — natural camera codec pattern ({hf_var:.6f})"
         else:
-            return 0.44, f"FFT pattern ambiguous (hf_var={hf_var:.5f})"
+            return 0.44, f"FFT pattern mixed/ambiguous (hf_var={hf_var:.5f})"
 
     # ──────────────────────────────────────────────────────────────────────────
     # Layer 3: Dense Optical Flow Analysis
