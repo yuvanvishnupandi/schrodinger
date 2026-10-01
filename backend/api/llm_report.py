@@ -95,7 +95,9 @@ Your job is to VERIFY the engine's verdict by cross-examining visual and audio t
 CRITICAL DIRECTIVES:
 1. If the Visual Telemetry (e.g., SigLIP, FFT, Optical Flow) strongly indicates synthetic generation (e.g., GAN artifacts, temporal freezing, inconsistent coherence), you MUST classify it as a FAKE, regardless of how normal or conversational the audio transcript is. (High-quality deepfakes often use normal speech to bypass intent detectors).
 2. If the Visual Telemetry is completely clean, but the Intent Analysis shows strong adversarial/coercive patterns (e.g., voice cloning scams), you MUST classify it as FAKE.
-3. Only override a FAKE verdict to REAL if BOTH Visual and Audio telemetry are definitively natural and the initial score was a borderline false positive.
+3. If the analysis threw an ERROR (e.g. library missing or unavailable), it is a system technical failure, NOT proof of a deepfake. DO NOT claim that missing libraries (like MediaPipe unavailable) mean the media is manipulated.
+4. If the visual coherence is slightly low, keep in mind this might just be a YouTube Short with fast camera cuts, not necessarily a deepfake. Do not declare FAKE unless there is definitive synthetic evidence.
+5. Only override a FAKE verdict to REAL if BOTH Visual and Audio telemetry are definitively natural and the initial score was a borderline false positive.
 """
 
         return f"""You are the Schrödinger Deep Forensics AI.
