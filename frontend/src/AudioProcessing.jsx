@@ -132,6 +132,7 @@ export default function AudioProcessing() {
         if (isUrl) {
           const form = new FormData();
           form.append('url', url);
+          form.append('type', 'audio');
           res = await fetch(`${BACKEND}/analyze/url`, { method: 'POST', body: form });
         } else {
           const form = new FormData();

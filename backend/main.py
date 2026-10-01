@@ -215,7 +215,7 @@ async def analyze_media(file: UploadFile = File(...)):
 
 
 @app.post("/analyze/url")
-async def analyze_url(url: str = Form(...)):
+async def analyze_url(url: str = Form(...), type: str = Form(None)):
     live_log_handler.clear()
     """
     Agentic AI Orchestrator Endpoint for URLs.
@@ -364,10 +364,10 @@ async def analyze_url(url: str = Form(...)):
         
         async with analysis_lock:
             # ── Route to correct pipeline ──────────────────────────────────────────
-            if file_ext in IMAGE_EXTS:
-                result = await _run_image_pipeline(downloaded_file, original_title)
-            elif file_ext in AUDIO_EXTS:
+            if type == 'audio' or file_ext in AUDIO_EXTS:
                 result = await _run_audio_pipeline(downloaded_file, original_title)
+            elif file_ext in IMAGE_EXTS:
+                result = await _run_image_pipeline(downloaded_file, original_title)
             elif file_ext in VIDEO_EXTS or file_ext == "mkv" or file_ext == "webm": # yt-dlp might use mkv/webm
                 result = await _run_video_pipeline(downloaded_file, original_title)
             else:
