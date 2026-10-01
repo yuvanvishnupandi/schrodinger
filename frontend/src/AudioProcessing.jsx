@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import { AlertTriangle, CheckCircle, AlertCircle } from 'lucide-react';
 import { getAnalysisInput, clearAnalysisInput } from './fileStore';
 
-const BACKEND = 'https://digit-paris-mlb-low.trycloudflare.com';
+const BACKEND = 'https://tired-times-win.loca.lt';
 
 
 
@@ -132,11 +132,11 @@ export default function AudioProcessing() {
         if (isUrl) {
           const form = new FormData();
           form.append('url', url);
-          res = await fetch(`${BACKEND}/analyze/url`, { method: 'POST', body: form });
+          res = await fetch(`${BACKEND}/analyze/url`, { method: 'POST', body: form, headers: { 'Bypass-Tunnel-Reminder': 'true' } });
         } else {
           const form = new FormData();
           form.append('file', file);
-          res = await fetch(`${BACKEND}/analyze/media`, { method: 'POST', body: form });
+          res = await fetch(`${BACKEND}/analyze/media`, { method: 'POST', body: form, headers: { 'Bypass-Tunnel-Reminder': 'true' } });
         }
 
         if (!res.ok) throw new Error(`Server returned ${res.status}`);

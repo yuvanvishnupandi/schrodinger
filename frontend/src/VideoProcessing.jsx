@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import { AlertTriangle, CheckCircle, AlertCircle } from 'lucide-react';
 import { getAnalysisInput, clearAnalysisInput } from './fileStore';
 
-const BACKEND = 'https://digit-paris-mlb-low.trycloudflare.com';
+const BACKEND = 'https://tired-times-win.loca.lt';
 
 // Phase-based logs that sync with actual backend processing time
 const PHASE_LOGS = {
@@ -130,7 +130,7 @@ export default function VideoProcessing() {
     const pollInterval = setInterval(async () => {
       if (isDoneRef.current) return;
       try {
-        const res = await fetch(`${BACKEND}/logs?t=${Date.now()}`);
+        const res = await fetch(`${BACKEND}/logs?t=${Date.now()}`, { headers: { 'Bypass-Tunnel-Reminder': 'true' } });
         if (res.ok && !isDoneRef.current) {
           const data = await res.json();
           if (data && Array.isArray(data.logs)) {
@@ -155,11 +155,11 @@ export default function VideoProcessing() {
         if (isUrl) {
           const form = new FormData();
           form.append('url', url);
-          res = await fetch(`${BACKEND}/analyze/url`, { method: 'POST', body: form });
+          res = await fetch(`${BACKEND}/analyze/url`, { method: 'POST', body: form, headers: { 'Bypass-Tunnel-Reminder': 'true' } });
         } else {
           const form = new FormData();
           form.append('file', file);
-          res = await fetch(`${BACKEND}/analyze/media`, { method: 'POST', body: form });
+          res = await fetch(`${BACKEND}/analyze/media`, { method: 'POST', body: form, headers: { 'Bypass-Tunnel-Reminder': 'true' } });
         }
 
         if (!res.ok) throw new Error(`Server returned ${res.status}`);
