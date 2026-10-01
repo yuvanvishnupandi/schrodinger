@@ -72,7 +72,7 @@ function UploadCard({ onFileReady }) {
   };
 
   return (
-    <div className="flex-1 bg-white rounded-[20px] shadow-[0_12px_40px_-10px_rgba(0,0,0,0.10)] border border-[#E5EEF9] flex flex-col overflow-hidden transition-all duration-300 hover:shadow-[0_16px_50px_-12px_rgba(0,0,0,0.15)] h-[370px]">
+    <div className="flex-1 bg-white rounded-[20px] shadow-[0_12px_40px_-10px_rgba(0,0,0,0.10)] border border-[#E5EEF9] flex flex-col overflow-hidden transition-all duration-300 hover:shadow-[0_16px_50px_-12px_rgba(0,0,0,0.15)] min-h-[370px]">
       <div className="px-5 py-4 border-b border-[#F0F5FA] bg-[#FAFCFF]">
         <span className="text-[15px] font-semibold text-[#5B6C8C]">Upload audio file</span>
       </div>
@@ -196,7 +196,7 @@ function URLCard({ onUrlReady }) {
   ];
 
   return (
-    <div className="flex-1 bg-white rounded-[20px] shadow-[0_12px_40px_-10px_rgba(0,0,0,0.10)] border border-[#E5EEF9] flex flex-col overflow-hidden transition-all duration-300 hover:shadow-[0_16px_50px_-12px_rgba(0,0,0,0.15)] relative h-[370px]">
+    <div className="flex-1 bg-white rounded-[20px] shadow-[0_12px_40px_-10px_rgba(0,0,0,0.10)] border border-[#E5EEF9] flex flex-col overflow-hidden transition-all duration-300 hover:shadow-[0_16px_50px_-12px_rgba(0,0,0,0.15)] relative min-h-[370px]">
       
       {/* ERROR POPUP */}
       {showErrorPopup && (

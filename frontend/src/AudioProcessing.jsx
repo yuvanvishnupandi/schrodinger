@@ -6,47 +6,7 @@ import { getAnalysisInput, clearAnalysisInput } from './fileStore';
 
 const BACKEND = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-const INCOMING_TEXT = "Hey mom, it's me. I'm in trouble and I need you to wire me $500 right now. Please don't tell anyone, just send it to this account immediately... ".repeat(30);
-const PROCESSED_TEXT = "DEEPFAKE DETECTED: 98% AI-generated. Biometric mismatch. Audio artifacts suggest ElevenLabs synthesis. Synthetic voice clone identified. Warning: Financial scam pattern detected. Do not proceed... ".repeat(30);
 
-function HeroMotionLayer() {
-  const svgRef = React.useRef(null);
-  React.useEffect(() => {
-    if (svgRef.current) svgRef.current.setCurrentTime(0);
-  }, []);
-
-  return (
-    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden" style={{ transform: 'translateZ(0)', willChange: 'transform' }}>
-      <div className="absolute right-0 bottom-4 w-[90%] md:w-[70%] lg:w-[50%] max-w-[900px] drop-shadow-2xl transcript-assembly opacity-90">
-        <svg ref={svgRef} viewBox="0 409 1024 176" fill="none" className="w-full h-auto overflow-visible" style={{ transform: 'translateZ(0)' }}>
-          <path id="acurve1" d="M -1500 450 C -800 450 -400 563.872 2.04309 563.872" stroke="transparent" />
-          <path id="acurve2" d="M2.04309 563.872C111.592 558.268 316.491 554.016 517.963 490.064C703.017 431.323 875.319 444.531 1021.88 453.216" stroke="#4274F6" strokeWidth="44" strokeLinecap="round" />
-          <text fontSize="28" fontWeight="600" fill="#7B8BFF" fontFamily="Inter, sans-serif" opacity="0.6">
-            <textPath href="#acurve1" startOffset="-100%">
-              {INCOMING_TEXT}
-              <animate attributeName="startOffset" from="-200%" to="0%" dur="80s" repeatCount="indefinite" />
-            </textPath>
-          </text>
-          <text fontSize="26" fontWeight="500" fill="#FFFFFF" fontFamily="Inter, sans-serif" style={{ baselineShift: '-25%' }}>
-            <textPath href="#acurve2" startOffset="-100%">
-              {PROCESSED_TEXT}
-              <animate attributeName="startOffset" from="-200%" to="0%" dur="90s" repeatCount="indefinite" />
-            </textPath>
-          </text>
-        </svg>
-        <div className="absolute" style={{ left: '0.2%', top: '87.99%', transform: 'translate(-50%, -50%)' }}>
-          <div className="bg-[#FBFBFC] border-[2px] border-[#1a1a1a] rounded-[26px] h-[52px] px-5 flex items-center shadow-[0_8px_20px_rgba(0,0,0,0.12)] pointer-events-auto relative z-10">
-            <div className="flex items-center gap-[5px] h-[22px]">
-              {[0, 0.3, 0.6, 0.2, 0.8, 0.4, 0.7, 0.1, 0.5, 0.2].map((delay, i) => (
-                <div key={i} className="w-[3px] bg-[#1a1a1a] rounded-full animate-wave-bounce" style={{ animationDelay: `${delay}s` }} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // Phase-based logs that sync with actual backend processing time
 const PHASE_LOGS = {
@@ -230,7 +190,6 @@ export default function AudioProcessing() {
         .animate-wave-bounce { animation: wave-bounce 1.2s ease-in-out infinite; }
       `}</style>
       <Navbar />
-      <HeroMotionLayer />
 
       <div className="flex-1 flex flex-col items-center px-4 pt-4 pb-10 gap-6">
 
