@@ -460,7 +460,7 @@ function Dashboard() {
                 The repo includes scripts for: converting video frames to images, face extraction (MTCNN or Azure Computer Vision API), dataset balancing and train/val/test split, and CNN training. Prerequisites: Python 3, Keras, TensorFlow, OpenCV, MTCNN. MIT License.
               </p>
               
-              <a href="https://github.com/aaronchong888/DeepFake-Detect" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-[#1a1a1a] text-white px-7 py-3.5 rounded-full font-bold text-[14px] hover:bg-black transition-all shadow-lg mt-2 hover:scale-105">
+              <a href="https://github.com/yuvanvishnupandi/schrodinger" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-[#1a1a1a] text-white px-7 py-3.5 rounded-full font-bold text-[14px] hover:bg-black transition-all shadow-lg mt-2 hover:scale-105">
                 View repository on GitHub
               </a>
             </div>
@@ -584,7 +584,7 @@ function Dashboard() {
           </div>
           
           <div className="md:w-1/3 flex justify-center items-center">
-             <a href="https://github.com/your-repo" target="_blank" rel="noreferrer" className="bg-white text-black px-8 py-3.5 rounded-full font-bold text-[16px] flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-300 shadow-sm">
+             <a href="https://github.com/yuvanvishnupandi/schrodinger" target="_blank" rel="noreferrer" className="bg-white text-black px-8 py-3.5 rounded-full font-bold text-[16px] flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-300 shadow-sm">
                View Repository
              </a>
           </div>

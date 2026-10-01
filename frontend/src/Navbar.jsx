@@ -132,7 +132,7 @@ export default function Navbar() {
             <div className="flex items-center w-1/3 justify-end pr-2 gap-3">
               {user ? (
                 <>
-                  <a href="https://github.com/aaronchong888/DeepFake-Detect" target="_blank" rel="noreferrer" className="bg-[#111111] ring-[3px] ring-gray-100 shadow-[0_4px_15px_rgba(0,0,0,0.1)] flex items-center gap-3 hover:scale-105 hover:shadow-lg text-white pl-1.5 pr-5 py-1.5 rounded-full text-[14px] font-bold transition-all group">
+                  <a href="https://github.com/yuvanvishnupandi/schrodinger" target="_blank" rel="noreferrer" className="bg-[#111111] ring-[3px] ring-gray-100 shadow-[0_4px_15px_rgba(0,0,0,0.1)] flex items-center gap-3 hover:scale-105 hover:shadow-lg text-white pl-1.5 pr-5 py-1.5 rounded-full text-[14px] font-bold transition-all group">
                     <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center group-hover:translate-x-1 transition-transform">
                       <ArrowRight className="w-4 h-4 text-black" strokeWidth={2.5} />
                     </div>
