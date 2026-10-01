@@ -5,7 +5,7 @@ torchvision
 torchaudio
 transformers
 librosa
-opencv-python
+opencv-python-headless
 mediapipe
 scikit-learn
 python-multipart
