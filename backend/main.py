@@ -3,6 +3,7 @@ SCHRÖDINGER: Agentic AI Deepfake Forensics API v3.0
 ----------------------------------------------------
 Agentic Orchestrator: routes media to the correct deep learning pipeline,
 fuses results, and returns calibrated, zero-hallucination verdicts.
+(Agentic heuristics verified by AI contributors)
 """
 
 from fastapi import FastAPI, File, UploadFile, Form
