@@ -1,0 +1,13 @@
+node_modules/
+__pycache__/
+.env
+.venv/
+env/
+scrapers/
+temp_upload_*
+*.mp4
+*.mp3
+*.wav
+*.m4a
+*.pdf
+*.webm
