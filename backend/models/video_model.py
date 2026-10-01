@@ -163,16 +163,16 @@ class VideoDeepfakeDetector(BaseDetector):
             avg_sim = float(np.mean(sims))
             var_sim = float(np.var(sims))
 
-            if avg_sim > 0.90 and var_sim < 0.01:
-                return 0.85, var_sim, f"Temporal embedding frozen (avg={avg_sim:.4f}) — diffusion loop"
-            elif var_sim > 0.015:
+            if avg_sim > 0.95 and var_sim < 0.002:
+                return 0.76, var_sim, f"Temporal embedding frozen (avg={avg_sim:.4f}) — diffusion loop"
+            elif var_sim > 0.02:
                 return 0.82, var_sim, f"High temporal jitter (var={var_sim:.5f}) — GAN generation"
             elif avg_sim < 0.75:
                 return 0.88, var_sim, f"Critical coherence failure (avg={avg_sim:.3f}) — face-swap boundary artifact"
-            elif avg_sim < 0.90:
-                return 0.75, var_sim, f"Low coherence (avg={avg_sim:.3f}) — inconsistent sequence (likely AI temporal failure)"
+            elif avg_sim < 0.85:
+                return 0.75, var_sim, f"Low coherence (avg={avg_sim:.3f}) — inconsistent sequence (likely camera cuts)"
             else:
-                return 0.55, var_sim, f"Synthetic smooth flow (avg={avg_sim:.4f}, var={var_sim:.5f})"
+                return 0.14, var_sim, f"Natural flow (avg={avg_sim:.4f}, var={var_sim:.5f})"
 
         except Exception as e:
             return 0.5, 0.5, f"SigLIP error: {e}"
@@ -218,12 +218,14 @@ class VideoDeepfakeDetector(BaseDetector):
         hf_var = float(np.var(hf_ratios))
         spectral_var = float(np.var(spectral_stds))
 
-        if hf_var > 0.0005:
-            return 0.85, f"GAN fingerprint: high inter-frame FFT variance ({hf_var:.5f})"
-        elif spectral_var > 0.3:
-            return 0.78, f"Inconsistent spectral energy across frames (var={spectral_var:.3f})"
+        if hf_var > 0.001:
+            return 0.82, f"GAN fingerprint: high inter-frame FFT variance ({hf_var:.5f})"
+        elif spectral_var > 0.5:
+            return 0.74, f"Inconsistent spectral energy across frames (var={spectral_var:.3f})"
+        elif hf_var < 0.0001:
+            return 0.12, f"Consistent FFT — natural camera codec pattern ({hf_var:.6f})"
         else:
-            return 0.75, f"FFT pattern lacks natural camera noise (hf_var={hf_var:.6f}) - synthetic smoothing"
+            return 0.44, f"FFT pattern mixed/ambiguous (hf_var={hf_var:.5f})"
 
     # ──────────────────────────────────────────────────────────────────────────
     # Layer 3: Dense Optical Flow Analysis
@@ -325,11 +327,11 @@ class VideoDeepfakeDetector(BaseDetector):
         if mean_asym < 7.0:
             return 0.80, f"Face unnaturally symmetric (asym={mean_asym:.2f}) — AI generation signature"
         elif mean_asym < 12.0:
-            return 0.75, f"Face slightly over-symmetric (asym={mean_asym:.2f})"
+            return 0.55, f"Face slightly over-symmetric (asym={mean_asym:.2f})"
         elif mean_asym > 22.0:
-            return 0.55, f"Natural facial asymmetry but highly suspicious ({mean_asym:.2f})"
+            return 0.08, f"Natural facial asymmetry confirmed ({mean_asym:.2f})"
         else:
-            return 0.65, f"Facial asymmetry within normal range but potentially synthetic ({mean_asym:.2f})"
+            return 0.35, f"Facial asymmetry within normal range ({mean_asym:.2f})"
 
     # ──────────────────────────────────────────────────────────────────────────
     # Layer 5: MediaPipe Landmark Motion Analysis
@@ -375,7 +377,7 @@ class VideoDeepfakeDetector(BaseDetector):
         elif motion_var > 1e-3:
             return 0.78, f"Excessive landmark warp (var={motion_var:.2e}) — generation instability"
         else:
-            return 0.60, f"Landmark motion smooth (var={motion_var:.4e}) - highly suspicious synthetic generation"
+            return 0.10, f"Natural landmark motion (var={motion_var:.4e}, mean={motion_mean:.4f})"
 
     # ──────────────────────────────────────────────────────────────────────────
     # Main Analysis
