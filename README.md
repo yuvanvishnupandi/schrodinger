@@ -38,17 +38,24 @@
 
 <table>
   <tr>
-    <td><img src="assets/home.jpeg" width="400" style="border-radius:8px"/></td>
-    <td><img src="assets/img7.jpeg" width="400" style="border-radius:8px"/></td>
-  </tr>
-  <tr>
     <td><img src="assets/img1.jpeg" width="400" style="border-radius:8px"/></td>
-    <td><img src="assets/login.jpeg" width="400" style="border-radius:8px"/></td>
-    
+    <td><img src="assets/img2.jpeg" width="400" style="border-radius:8px"/></td>
   </tr>
   <tr>
-    <td><img src="assets/img11.jpeg" width="400" style="border-radius:8px"/></td>
-    <td><img src="assets/img12.jpeg" width="400" style="border-radius:8px"/></td>
+    <td><img src="assets/img3.jpeg" width="400" style="border-radius:8px"/></td>
+    <td><img src="assets/img4.jpeg" width="400" style="border-radius:8px"/></td>
+  </tr>
+  <tr>
+    <td><img src="assets/img5.jpeg" width="400" style="border-radius:8px"/></td>
+    <td><img src="assets/img6.jpeg" width="400" style="border-radius:8px"/></td>
+  </tr>
+  <tr>
+    <td><img src="assets/img7.jpeg" width="400" style="border-radius:8px"/></td>
+    <td><img src="assets/img8.jpeg" width="400" style="border-radius:8px"/></td>
+  </tr>
+  <tr>
+    <td><img src="assets/img9.jpeg" width="400" style="border-radius:8px"/></td>
+    <td><img src="assets/img10.jpeg" width="400" style="border-radius:8px"/></td>
   </tr>
 </table>
 
