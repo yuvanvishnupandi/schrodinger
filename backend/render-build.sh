@@ -16,7 +16,6 @@ echo "FFmpeg installed successfully."
 echo "========================================="
 echo " Installing Python dependencies          "
 echo "========================================="
-cd backend
 pip install --upgrade pip
 pip install -r requirements.txt
 echo "Dependencies installed successfully."
