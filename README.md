@@ -17,14 +17,14 @@
 <a href="LICENSE">
 <img src="https://img.shields.io/badge/License-MIT-7C3AED?style=for-the-badge&logo=opensourceinitiative&logoColor=white" alt="MIT License"/>
 </a>
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"/>
 
-<img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
-
-<img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB"/>
-
+<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+<img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" alt="TensorFlow"/>
+<img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white" alt="OpenCV"/>
+<img src="https://img.shields.io/badge/HuggingFace-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" alt="HuggingFace"/>
 <img src="https://img.shields.io/badge/Mistral_AI-F472B6?style=for-the-badge&logo=mistral&logoColor=white" alt="Mistral AI"/>
-
+<img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"/>
 <img src="https://img.shields.io/github/last-commit/yuvanvishnupandi/schrodinger?style=for-the-badge"/>
 
 </p>
@@ -397,3 +397,18 @@ npm run dev
 ## License
 
 Schrödinger is [MIT licensed](LICENSE).
+
+<br />
+
+## 📚 Research & References
+
+The core heuristics and deep learning pipelines in Schrödinger are heavily inspired by foundational research in digital media forensics. Our engine implements concepts from the following peer-reviewed papers:
+
+1. **FaceForensics++: Learning to Detect Manipulated Facial Images** *(Rossler et al., 2019)*  
+   *Used as the primary structural basis for our EfficientNet-based spatial artifact detector.*
+2. **Exposing DeepFake Videos By Detecting Face Warping Artifacts** *(Li & Lyu, 2019)*  
+   *Informs our MTCNN geometric alignment and resolution-inconsistency checks.*
+3. **Wav2Vec 2.0 / WavLM For Speech Processing** *(Chen et al., 2022)*  
+   *Foundation for our audio temporal phase and frequency variance analysis.*
+4. **CNN-generated images are surprisingly easy to spot... for now** *(Wang et al., 2020)*  
+   *Provides the mathematical baseline for our High-Frequency GAN grid detection.*
