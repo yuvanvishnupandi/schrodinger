@@ -412,3 +412,5 @@ The core heuristics and deep learning pipelines in Schrödinger are heavily insp
    *Foundation for our audio temporal phase and frequency variance analysis.*
 4. **CNN-generated images are surprisingly easy to spot... for now** *(Wang et al., 2020)*  
    *Provides the mathematical baseline for our High-Frequency GAN grid detection.*
+
+
