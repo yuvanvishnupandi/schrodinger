@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import { AlertTriangle, CheckCircle, AlertCircle } from 'lucide-react';
 import { getAnalysisInput, clearAnalysisInput } from './fileStore';
 
-const BACKEND = 'https://a62969003f8cd1.lhr.life';
+const BACKEND = 'https://3439095d6d4831.lhr.life';
 
 
 
