@@ -42,7 +42,7 @@ class ImageConfig:
 
 @dataclass
 class FraudConfig:
-    whisper_model: str = "small"
+    whisper_model: str = "tiny"  # Changed from small to tiny for local CPU speed
     whisper_device: str = "cpu"
     whisper_compute_type: str = "int8"
 
