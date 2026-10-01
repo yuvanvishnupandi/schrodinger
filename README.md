@@ -38,16 +38,16 @@
 
 <table>
   <tr>
-    <td><img src="assets/img1.jpeg" width="400" style="border-radius:8px"/></td>
-    <td><img src="assets/img2.jpeg" width="400" style="border-radius:8px"/></td>
+    <td><img src="assets/img1.png" width="400" style="border-radius:8px"/></td>
+    <td><img src="assets/img2.png" width="400" style="border-radius:8px"/></td>
   </tr>
   <tr>
-    <td><img src="assets/img3.jpeg" width="400" style="border-radius:8px"/></td>
-    <td><img src="assets/img4.jpeg" width="400" style="border-radius:8px"/></td>
+    <td><img src="assets/img3.png" width="400" style="border-radius:8px"/></td>
+    <td><img src="assets/img4.png" width="400" style="border-radius:8px"/></td>
   </tr>
   <tr>
-    <td><img src="assets/img5.jpeg" width="400" style="border-radius:8px"/></td>
-    <td><img src="assets/img6.jpeg" width="400" style="border-radius:8px"/></td>
+    <td><img src="assets/img5.png" width="400" style="border-radius:8px"/></td>
+    <td><img src="assets/img6.png" width="400" style="border-radius:8px"/></td>
   </tr>
 </table>
 
