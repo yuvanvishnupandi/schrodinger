@@ -28,10 +28,9 @@ class ForensicReportGenerator:
         }
         # Priority order for fallback chain
         self.fallback_order = [
-            ("mistral", "mistral-large-latest"),
             ("mistral", "pixtral-12b-2409"),
-            ("mistral", "mistral-small-latest"),
             ("gemini", "gemini-1.5-pro-latest"),
+            ("mistral", "mistral-large-latest"),
             ("gemini", "gemini-1.5-flash-latest"),
             ("openai", "gpt-4o-mini"),
             ("groq", "llama3-70b-8192")
@@ -56,7 +55,7 @@ class ForensicReportGenerator:
                 if provider == "gemini":
                     result = self._call_gemini(prompt, file_path, model_name)
                 else:
-                    result = self._call_provider(provider, prompt, model_name)
+                    result = self._call_provider(provider, prompt, file_path, model_name)
                 if result and not result.startswith("Error"):
                     logger.info(f"LLM report generated via {provider} ({model_name})")
                     return result
@@ -125,15 +124,15 @@ Audio/Intent Layer: {analysis_result.get('details', {}).get('intent')}
 {analysis_result.get('transcript', 'N/A')}
 """
 
-    def _call_provider(self, provider: str, prompt: str, model_name: str) -> str:
+    def _call_provider(self, provider: str, prompt: str, file_path: str, model_name: str) -> str:
         dispatch = {
             "groq": self._call_groq,
             "openai": self._call_openai,
             "mistral": self._call_mistral,
         }
-        return dispatch[provider](prompt, model_name)
+        return dispatch[provider](prompt, file_path, model_name)
 
-    def _call_groq(self, prompt: str, model_name: str) -> str:
+    def _call_groq(self, prompt: str, file_path: str, model_name: str) -> str:
         headers = {
             "Authorization": f"Bearer {self.api_keys['groq']}",
             "Content-Type": "application/json"
@@ -208,7 +207,7 @@ Audio/Intent Layer: {analysis_result.get('details', {}).get('intent')}
             return resp.json()["candidates"][0]["content"]["parts"][0]["text"]
         raise Exception(f"Gemini HTTP {resp.status_code}: {resp.text[:200]}")
 
-    def _call_openai(self, prompt: str, model_name: str) -> str:
+    def _call_openai(self, prompt: str, file_path: str, model_name: str) -> str:
         headers = {
             "Authorization": f"Bearer {self.api_keys['openai']}",
             "Content-Type": "application/json"
@@ -227,20 +226,65 @@ Audio/Intent Layer: {analysis_result.get('details', {}).get('intent')}
             return resp.json()["choices"][0]["message"]["content"]
         raise Exception(f"OpenAI HTTP {resp.status_code}: {resp.text[:200]}")
 
-    def _call_mistral(self, prompt: str, model_name: str) -> str:
+    def _call_mistral(self, prompt: str, file_path: str, model_name: str) -> str:
+        messages = [{"role": "system", "content": prompt}]
+        
+        # Add visual verification using Mistral Pixtral Vision capabilities!
+        if "pixtral" in model_name and file_path and os.path.exists(file_path):
+            try:
+                import cv2
+                import base64
+                
+                # Check if it's a video
+                if file_path.lower().endswith(('.mp4', '.avi', '.mov', '.webm', '.mkv')):
+                    cap = cv2.VideoCapture(file_path)
+                    frames_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+                    if frames_count > 0:
+                        cap.set(cv2.CAP_PROP_POS_FRAMES, max(0, frames_count // 2))
+                        ret, frame = cap.read()
+                        if ret:
+                            frame = cv2.resize(frame, (640, 480))
+                            _, buffer = cv2.imencode('.jpg', frame, [int(cv2.IMWRITE_JPEG_QUALITY), 80])
+                            b64_img = base64.b64encode(buffer).decode('utf-8')
+                            messages.append({
+                                "role": "user",
+                                "content": [
+                                    {"type": "text", "text": "Analyze this frame from the media. Does this visually appear to be a deepfake or authentic?"},
+                                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64_img}"}}
+                                ]
+                            })
+                            logger.info("Attached video middle-frame to Pixtral Vision prompt for Agentic Verification.")
+                    cap.release()
+                elif file_path.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')):
+                    img = cv2.imread(file_path)
+                    if img is not None:
+                        img = cv2.resize(img, (640, 480))
+                        _, buffer = cv2.imencode('.jpg', img, [int(cv2.IMWRITE_JPEG_QUALITY), 80])
+                        b64_img = base64.b64encode(buffer).decode('utf-8')
+                        messages.append({
+                            "role": "user",
+                            "content": [
+                                {"type": "text", "text": "Analyze this image. Does this visually appear to be a deepfake or authentic?"},
+                                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64_img}"}}
+                            ]
+                        })
+                        logger.info("Attached image to Pixtral Vision prompt for Agentic Verification.")
+            except Exception as e:
+                logger.warning(f"Failed to attach image to Pixtral: {e}")
+
         headers = {
             "Authorization": f"Bearer {self.api_keys['mistral']}",
             "Content-Type": "application/json"
         }
         data = {
             "model": model_name,
-            "messages": [{"role": "system", "content": prompt}],
+            "messages": messages,
             "temperature": 0.1,
             "max_tokens": 300,
         }
         resp = requests.post(
             "https://api.mistral.ai/v1/chat/completions",
-            headers=headers, json=data, timeout=15
+            headers=headers, json=data, timeout=25
         )
         if resp.status_code == 200:
             return resp.json()["choices"][0]["message"]["content"]
