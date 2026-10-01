@@ -145,7 +145,7 @@ export default function VideoProcessing() {
       } catch (e) {
         setLogs(prev => [...prev, `[POLL ERROR] Network fetch failed: ${e.message}`]);
       }
-    }, 500);
+    }, 3000);
     timersRef.current.push(pollInterval);
 
     // Backend call (runs in parallel with log animation)
