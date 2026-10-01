@@ -48,7 +48,7 @@ class ListHandler(logging.Handler):
         self.logs = []
 
 live_log_handler = ListHandler()
-live_log_handler.setFormatter(logging.Formatter('  [%(levelname)s] %(message)s'))
+live_log_handler.setFormatter(logging.Formatter('[%(asctime)s] [ORCHESTRATOR] [%(levelname)s] %(message)s', datefmt="%H:%M:%S"))
 logger.addHandler(live_log_handler)
 
 app = FastAPI(
