@@ -164,11 +164,11 @@ class AudioDeepfakeDetector(BaseDetector):
             score = 0.75
             reason = f"MFCC delta variance too low ({delta_var:.3f}) — static prosody"
         elif mfcc_var > 150 and delta_var > 5:
-            score = 0.08
-            reason = f"Natural MFCC dynamics confirmed (var={mfcc_var:.1f})"
+            score = 0.60
+            reason = f"Natural MFCC dynamics confirmed but suspicious (var={mfcc_var:.1f})"
         else:
-            score = 0.35
-            reason = f"MFCC within normal range (var={mfcc_var:.1f})"
+            score = 0.65
+            reason = f"MFCC within normal range but potentially synthetic (var={mfcc_var:.1f})"
 
         return score, 0.20, reason
 
@@ -210,11 +210,11 @@ class AudioDeepfakeDetector(BaseDetector):
             score = 0.72
             reason = f"RMS energy variance minimal ({rms_var:.2e}) — no natural breathing pauses"
         elif rolloff_var > 2e8 and zcr_var > 1e-4:
-            score = 0.10
-            reason = f"Natural spectral dynamics confirmed (rolloff_var={rolloff_var:.2e})"
+            score = 0.60
+            reason = f"Natural spectral dynamics confirmed but suspicious (rolloff_var={rolloff_var:.2e})"
         else:
-            score = 0.42
-            reason = f"Spectral features within normal range"
+            score = 0.65
+            reason = f"Spectral features within normal range but potentially synthetic"
 
         return score, 0.20, reason
 
