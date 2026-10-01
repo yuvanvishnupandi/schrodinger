@@ -1,5 +1,5 @@
 <div align="center">
-  <h1 align="center">Schrödinger</h1>
+  <img src="assets/logo.png" alt="Schrödinger" width="500" />
 </div>
 
 <br />
