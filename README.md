@@ -5,7 +5,7 @@
 <br />
 
 <div align="center">
-<p>A self-hosted, AI-powered deepfake forensics platform with multi-layer mathematical heuristics, agentic verification, live URL extraction, and real-time inference telemetry.</p>
+<p>An open-source, AI-powered deepfake forensics platform with multi-layer mathematical heuristics, agentic verification, live URL extraction, and real-time inference telemetry.</p>
 <br />
 
 <p align="center">
