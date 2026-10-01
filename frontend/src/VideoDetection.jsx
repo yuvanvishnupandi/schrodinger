@@ -22,7 +22,7 @@ function UploadCard({ onFileReady }) {
   };
 
   return (
-    <div className="flex-1 bg-white/95 backdrop-blur-xl rounded-[20px] shadow-[0_12px_40px_-10px_rgba(0,0,0,0.10)] border border-white/60 flex flex-col overflow-hidden transition-all duration-300 hover:shadow-[0_16px_50px_-12px_rgba(0,0,0,0.15)]">
+    <div className="flex-1 bg-white/95 backdrop-blur-xl rounded-[20px] shadow-[0_12px_40px_-10px_rgba(0,0,0,0.10)] border border-white/60 flex flex-col overflow-hidden transition-all duration-300 hover:shadow-[0_16px_50px_-12px_rgba(0,0,0,0.15)] min-h-[370px]">
       <div className="px-5 py-4 border-b border-[#F0F5FA] bg-[#FAFCFF]/80">
         <span className="text-[15px] font-semibold text-[#5B6C8C]">Upload video file</span>
       </div>
@@ -140,7 +140,7 @@ function URLCard({ onUrlReady }) {
   ];
 
   return (
-    <div className="flex-1 bg-white/95 backdrop-blur-xl rounded-[20px] shadow-[0_12px_40px_-10px_rgba(0,0,0,0.10)] border border-white/60 flex flex-col overflow-hidden transition-all duration-300 hover:shadow-[0_16px_50px_-12px_rgba(0,0,0,0.15)] relative">
+    <div className="flex-1 bg-white/95 backdrop-blur-xl rounded-[20px] shadow-[0_12px_40px_-10px_rgba(0,0,0,0.10)] border border-white/60 flex flex-col overflow-hidden transition-all duration-300 hover:shadow-[0_16px_50px_-12px_rgba(0,0,0,0.15)] relative min-h-[370px]">
       
       {/* ERROR POPUP */}
       {showErrorPopup && (
