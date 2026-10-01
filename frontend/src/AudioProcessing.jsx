@@ -10,10 +10,15 @@ const INCOMING_TEXT = "Hey mom, it's me. I'm in trouble and I need you to wire m
 const PROCESSED_TEXT = "DEEPFAKE DETECTED: 98% AI-generated. Biometric mismatch. Audio artifacts suggest ElevenLabs synthesis. Synthetic voice clone identified. Warning: Financial scam pattern detected. Do not proceed... ".repeat(30);
 
 function HeroMotionLayer() {
+  const svgRef = React.useRef(null);
+  React.useEffect(() => {
+    if (svgRef.current) svgRef.current.setCurrentTime(0);
+  }, []);
+
   return (
     <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden" style={{ transform: 'translateZ(0)', willChange: 'transform' }}>
       <div className="absolute right-0 bottom-4 w-[90%] md:w-[70%] lg:w-[50%] max-w-[900px] drop-shadow-2xl transcript-assembly opacity-90">
-        <svg viewBox="0 409 1024 176" fill="none" className="w-full h-auto overflow-visible" style={{ transform: 'translateZ(0)' }}>
+        <svg ref={svgRef} viewBox="0 409 1024 176" fill="none" className="w-full h-auto overflow-visible" style={{ transform: 'translateZ(0)' }}>
           <path id="acurve1" d="M -1500 450 C -800 450 -400 563.872 2.04309 563.872" stroke="transparent" />
           <path id="acurve2" d="M2.04309 563.872C111.592 558.268 316.491 554.016 517.963 490.064C703.017 431.323 875.319 444.531 1021.88 453.216" stroke="#4274F6" strokeWidth="44" strokeLinecap="round" />
           <text fontSize="28" fontWeight="600" fill="#7B8BFF" fontFamily="Inter, sans-serif" opacity="0.6">
