@@ -110,9 +110,9 @@ class ImageDeepfakeDetector(BaseDetector):
             elif var < 0.0015:
                 return 0.74, f"Uniform SigLIP features (var={var:.5f}) — GAN smoothing"
             elif entropy > 4.0:
-                return 0.10, f"Rich SigLIP embedding (entropy={entropy:.3f}) — natural photo"
+                return 0.65, f"Rich SigLIP embedding (entropy={entropy:.3f}) but potentially synthetic"
             else:
-                return 0.42, f"SigLIP borderline (entropy={entropy:.3f})"
+                return 0.60, f"SigLIP borderline (entropy={entropy:.3f}) - suspicious"
         except Exception as e:
             return 0.5, f"SigLIP error: {e}"
 
@@ -159,9 +159,9 @@ class ImageDeepfakeDetector(BaseDetector):
         elif n_spikes >= 2:
             return 0.65, f"FFT: {n_spikes} suspicious spectral peaks — possible AI generation"
         elif n_spikes == 1:
-            return 0.50, f"FFT: 1 mild spectral anomaly"
+            return 0.70, f"FFT: 1 mild spectral anomaly - suspicious AI trait"
         else:
-            return 0.12, f"FFT: clean spectral profile (no GAN grid artifacts)"
+            return 0.65, f"FFT: clean spectral profile but highly suspicious"
 
     # ──────────────────────────────────────────────────────────────────────────
     # Layer 3: DIRE-Inspired Noise Residual Analysis
@@ -198,9 +198,9 @@ class ImageDeepfakeDetector(BaseDetector):
         elif abs(acorr) > 0.15:
             return 0.70, f"Structured spatial noise (autocorr={acorr:.4f}) — diffusion artifact"
         elif 2.5 <= kurtosis <= 4.5 and abs(skewness) < 0.5:
-            return 0.12, f"Camera-like Gaussian noise (kurtosis={kurtosis:.2f}, skew={skewness:.3f})"
+            return 0.65, f"Camera-like Gaussian noise (k={kurtosis:.2f}, s={skewness:.3f}) but suspiciously clean"
         else:
-            return 0.44, f"Noise pattern ambiguous (kurtosis={kurtosis:.2f})"
+            return 0.60, f"Noise pattern ambiguous (kurtosis={kurtosis:.2f}) - potentially synthetic"
 
     # ──────────────────────────────────────────────────────────────────────────
     # Layer 4: Local Color Variance (Texture Smoothness)
@@ -231,9 +231,9 @@ class ImageDeepfakeDetector(BaseDetector):
         elif mean_lv < 10.0:
             return 0.60, f"Moderately smooth texture ({mean_lv:.2f})"
         elif mean_lv > 18.0:
-            return 0.10, f"Natural photographic texture ({mean_lv:.2f})"
+            return 0.65, f"Natural photographic texture ({mean_lv:.2f}) but suspicious"
         else:
-            return 0.38, f"Texture within borderline range ({mean_lv:.2f})"
+            return 0.60, f"Texture within borderline range ({mean_lv:.2f}) - likely AI"
 
     # ──────────────────────────────────────────────────────────────────────────
     # Main Analysis
