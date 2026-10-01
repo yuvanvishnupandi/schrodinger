@@ -166,9 +166,11 @@ class VideoDeepfakeDetector(BaseDetector):
             if avg_sim > 0.95 and var_sim < 0.002:
                 return 0.76, var_sim, f"Temporal embedding frozen (avg={avg_sim:.4f}) — diffusion loop"
             elif var_sim > 0.02:
-                return 0.80, var_sim, f"High temporal jitter (var={var_sim:.5f}) — GAN generation"
+                return 0.82, var_sim, f"High temporal jitter (var={var_sim:.5f}) — GAN generation"
+            elif avg_sim < 0.75:
+                return 0.88, var_sim, f"Critical coherence failure (avg={avg_sim:.3f}) — face-swap boundary artifact"
             elif avg_sim < 0.85:
-                return 0.72, var_sim, f"Low coherence (avg={avg_sim:.3f}) — inconsistent sequence (likely camera cuts)"
+                return 0.75, var_sim, f"Low coherence (avg={avg_sim:.3f}) — inconsistent sequence (likely camera cuts)"
             else:
                 return 0.14, var_sim, f"Natural flow (avg={avg_sim:.4f}, var={var_sim:.5f})"
 
@@ -263,11 +265,13 @@ class VideoDeepfakeDetector(BaseDetector):
         angle_mean = float(np.mean(angle_stds))
 
         if mag_var < 1e-4 and angle_mean > 1.2:
-            return 0.84, f"Optical flow: face-warp boundary artifact (mag_var={mag_var:.2e}, angle={angle_mean:.3f})"
+            return 0.86, f"Optical flow: face-warp boundary artifact (mag_var={mag_var:.2e}, angle={angle_mean:.3f})"
+        elif mag_var > 20.0:
+            return 0.95, f"Optical flow: critical inter-frame jitter ({mag_var:.3f}) — heavy synthetic instability"
         elif mag_var > 8.0:
-            return 0.78, f"Optical flow: excessive inter-frame jitter ({mag_var:.3f}) — generation instability"
+            return 0.84, f"Optical flow: excessive inter-frame jitter ({mag_var:.3f}) — generation instability"
         elif mag_var < 1e-7:
-            return 0.72, f"Optical flow: face frozen in scene ({mag_var:.2e}) — deepfake freeze artifact"
+            return 0.74, f"Optical flow: face frozen in scene ({mag_var:.2e}) — deepfake freeze artifact"
         else:
             return 0.13, f"Optical flow: natural motion pattern (mag_var={mag_var:.4f})"
 
@@ -399,13 +403,13 @@ class VideoDeepfakeDetector(BaseDetector):
 
         # ── Fast layers first (pure OpenCV, no heavy models) ───────────────────
         of_s, of_r = self._optical_flow(frames)
-        of_w = 0.30 if is_low_res else 0.20
+        of_w = 0.50 if of_s > 0.80 else (0.30 if is_low_res else 0.20)
         votes.append((of_s, of_w))
         reasons.append(f"[OpticalFlow] {of_r}")
 
         asym_s, asym_r = self._face_asymmetry(frames)
         if "unavailable" not in asym_r:
-            asym_w = 0.20 if is_low_res else 0.15
+            asym_w = 0.10  # Reduce asymmetry weight because face swaps preserve original asymmetry
             votes.append((asym_s, asym_w))
         reasons.append(f"[Asymmetry] {asym_r}")
 
@@ -418,13 +422,13 @@ class VideoDeepfakeDetector(BaseDetector):
         # ── ALWAYS run SigLIP + FFT for max accuracy on deepfakes ──────────────
         self.logger.info("Running deep feature extraction (SigLIP + FFT)...")
         temp_s, temp_var, temp_r = self._siglip_temporal(frames)
-        # Give high weight to SigLIP if it detects deepfake anomalies
-        siglip_weight = 0.45 if temp_s > 0.65 else 0.30
+        # Give massive weight to SigLIP if it detects critical deepfake anomalies
+        siglip_weight = 0.60 if temp_s > 0.85 else (0.45 if temp_s > 0.65 else 0.30)
         votes.append((temp_s, siglip_weight))
         reasons.append(f"[SigLIP] {temp_r}")
 
         fft_s, fft_r = self._fft_fingerprint(frames)
-        fft_weight = 0.35 if fft_s > 0.65 else 0.20
+        fft_weight = 0.40 if fft_s > 0.75 else (0.35 if fft_s > 0.65 else 0.20)
         votes.append((fft_s, fft_weight))
         reasons.append(f"[FFT] {fft_r}")
 
