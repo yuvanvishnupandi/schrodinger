@@ -269,7 +269,7 @@ async def analyze_url(url: str = Form(...)):
         'no_warnings': True,
         'nocheckcertificate': True,
         'source_address': '0.0.0.0',
-        'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
+        'extractor_args': {'youtube': {'player_client': ['android', 'ios', 'tv', 'web']}},
         'logger': YtDlpLogger(),
         'progress_hooks': [yt_dlp_hook]
     }
